@@ -21,11 +21,28 @@ import tkinter as tk
 import time
 import random
 
-try:
-    import pygame
-    HAS_AUDIO = True
-except ImportError:
-    HAS_AUDIO = False
+# pygame is imported only when needed (at start), to avoid
+# crashing on macOS versions that the installed pygame doesn't support.
+_pygame = None
+
+
+def _load_audio(filepath):
+    """Import pygame and play *filepath*. Returns True on success."""
+    global _pygame
+    if _pygame is None:
+        try:
+            import pygame as _pg
+            _pygame = _pg
+        except Exception:
+            return False
+    try:
+        _pygame.mixer.init()
+        _pygame.mixer.music.load(filepath)
+        _pygame.mixer.music.play()
+        return True
+    except Exception as e:
+        print(f"Audio error: {e}")
+        return False
 
 # ====================== EDIT THIS SECTION ======================
 
@@ -181,13 +198,8 @@ class LyricFloatApp:
         self.start_time = time.time()
         self.last_time = self.start_time
 
-        if HAS_AUDIO and AUDIO_FILE:
-            try:
-                pygame.mixer.init()
-                pygame.mixer.music.load(AUDIO_FILE)
-                pygame.mixer.music.play()
-            except Exception as e:
-                print(f"Audio error: {e}")
+        if AUDIO_FILE:
+            _load_audio(AUDIO_FILE)
 
         self._tick()
 
