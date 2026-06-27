@@ -6,7 +6,7 @@ fullscreen canvas, synced to a song. All rendering happens inside a
 single window — no multi-popup headaches, works everywhere.
 
 Requirements:
-    pip install pygame   (optional, for audio playback)
+    None — uses built-in OS audio player (afplay on macOS).
 
 Usage:
     1. Put your song file in the same folder (e.g. "song.mp3")
@@ -21,28 +21,23 @@ import tkinter as tk
 import time
 import random
 
-# pygame is imported only when needed (at start), to avoid
-# crashing on macOS versions that the installed pygame doesn't support.
-_pygame = None
+import subprocess
+import platform
+import os
 
 
-def _load_audio(filepath):
-    """Import pygame and play *filepath*. Returns True on success."""
-    global _pygame
-    if _pygame is None:
-        try:
-            import pygame as _pg
-            _pygame = _pg
-        except Exception:
-            return False
+def _play_audio(filepath):
+    """Play audio using the OS native player (no pygame needed)."""
+    system = platform.system()
     try:
-        _pygame.mixer.init()
-        _pygame.mixer.music.load(filepath)
-        _pygame.mixer.music.play()
-        return True
+        if system == "Darwin":
+            subprocess.Popen(["afplay", filepath])
+        elif system == "Windows":
+            subprocess.Popen(["start", "", filepath], shell=True)
+        else:
+            subprocess.Popen(["xdg-open", filepath])
     except Exception as e:
         print(f"Audio error: {e}")
-        return False
 
 # ====================== EDIT THIS SECTION ======================
 
@@ -199,7 +194,7 @@ class LyricFloatApp:
         self.last_time = self.start_time
 
         if AUDIO_FILE:
-            _load_audio(AUDIO_FILE)
+            _play_audio(AUDIO_FILE)
 
         self._tick()
 
