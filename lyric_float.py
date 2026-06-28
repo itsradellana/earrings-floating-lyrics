@@ -44,7 +44,7 @@ CARD_BORDER  = (200, 200, 200, 255)    # grey border
 
 RISE_SPEED = 80
 SPAWN_COLS = 2
-BOTTOM_SPAWN_Y = 0.10    # spawn near bottom (0.0=bottom, 1.0=top)
+BOTTOM_SPAWN_Y = 0.15    # spawn near bottom, rise upward (0=bottom, 1=top)
 
 # ===============================================================
 
@@ -83,13 +83,13 @@ class LyricCard:
             self.done = True
 
     def rise(self, dy):
-        self.y -= dy
+        self.y += dy
         self.body.y = self.y
         self.border.y = self.y - 1
         self.label.y = self.y + CARD_H // 2
 
-    def off_screen(self):
-        return self.y + CARD_H < -10
+    def off_screen(self, screen_h):
+        return self.y > screen_h + 10
 
     def delete(self):
         self.body.delete()
@@ -165,7 +165,7 @@ class LyricFloat:
         for c in self.cards:
             c.rise(dy)
 
-        self.cards = [c for c in self.cards if not c.off_screen()]
+        self.cards = [c for c in self.cards if not c.off_screen(self.screen_h)]
 
         if self.next_idx >= len(LYRICS) and not self.cards and self.elapsed > LYRICS[-1][0] + 3:
             self.running = False
