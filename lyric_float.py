@@ -41,8 +41,8 @@ CARD_W  = 360
 CARD_H  = 160
 FONT_SIZE = 28
 TEXT_COLOR   = (30, 30, 30, 255)       # dark text
-CARD_BG      = (255, 255, 255, 160)    # white card
-CARD_BORDER  = (200, 200, 200, 80)     # grey border
+CARD_BG      = (255, 255, 255, 255)    # solid white card
+CARD_BORDER  = (200, 200, 200, 255)    # grey border
 
 RISE_SPEED = 80
 SPAWN_COLS = 2
