@@ -17,8 +17,6 @@ import pyglet
 from pyglet import gl
 from pyglet.window import key
 import subprocess
-import time
-import os
 import platform
 
 # ====================== EDIT THIS SECTION ======================
@@ -109,8 +107,7 @@ class LyricFloat:
 
         self.window = pyglet.window.Window(
             width=self.screen_w, height=self.screen_h,
-            style=pyglet.window.Window.WINDOW_STYLE_OVERLAY,
-            caption="Lyric Float",
+            style=pyglet.window.Window.WINDOW_STYLE_TRANSPARENT,
         )
         self.window.set_location(0, 0)
         # hide mouse cursor during animation
@@ -120,8 +117,6 @@ class LyricFloat:
         self.cards = []
         self.next_idx = 0
         self.col_idx = 0
-        self.start_time = time.time()
-        self.last_time = self.start_time
         self.elapsed = 0.0
         self.running = True
 
@@ -155,10 +150,7 @@ class LyricFloat:
     def _update(self, dt):
         if not self.running:
             return
-        now = time.time()
-        self.elapsed = now - self.start_time
-        dt = now - self.last_time
-        self.last_time = now
+        self.elapsed += dt
 
         cols = self._column_centers()
 
