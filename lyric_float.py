@@ -1,8 +1,8 @@
 """
-Floating Lyric Animation — Pyglet Native (macOS, Windows, Linux)
-------------------------------------------------------------------
-Small transparent lyric cards float upward over your desktop.
-Run from VS Code terminal, no browser needed.
+Floating Lyric Animation — Pyglet Native (Zero External Deps)
+---------------------------------------------------------------
+Small lyric cards float upward over your desktop as a transparent
+overlay. Run from VS Code terminal — no browser, no tkinter.
 
 Requirements:
     pip3 install pyglet
@@ -10,12 +10,10 @@ Requirements:
 Usage:
     1. Edit LYRICS and AUDIO_FILE below.
     2. Run: python3 lyric_float.py
-    3. Cards start floating immediately.
-    4. Press Escape or click to exit.
+    3. Cards start floating. Press Esc or click to exit.
 """
 
 import pyglet
-from pyglet import shapes
 from pyglet.window import key
 import subprocess
 import time
@@ -40,41 +38,28 @@ LYRICS = [
 
 CARD_W  = 340
 CARD_H  = 140
-FONT_NAME = "Helvetica Neue"
 FONT_SIZE = 26
-TEXT_COLOR = (255, 255, 255, 255)        # white
-CARD_BG    = (10, 10, 20, 90)            # dark translucent
-CARD_BORDER = (255, 255, 255, 40)         # subtle white border
+TEXT_COLOR = (255, 255, 255, 255)
 
 RISE_SPEED = 80
 SPAWN_COLS = 2
-BOTTOM_SPAWN_Y = 0.78   # spawn at 78 % of screen height
+BOTTOM_SPAWN_Y = 0.78
 
 # ===============================================================
 
 
 class LyricCard:
     def __init__(self, text, cx, y, batch):
-        self.batch = batch
-        self.x = cx - CARD_W // 2
-        self.y = float(y)
         self.full_text = text
         self.char_index = 0
         self.done = False
+        self.x = cx - CARD_W // 2
+        self.y = float(y)
+        self.batch = batch
 
-        shadow_off = (3, -3)
-        self.shadow = shapes.Rectangle(
-            self.x + shadow_off[0], self.y + shadow_off[1],
-            CARD_W, CARD_H,
-            color=(0, 0, 0, 30), batch=batch,
-        )
-        self.body = shapes.BorderedRectangle(
-            self.x, self.y, CARD_W, CARD_H,
-            border=1, border_color=CARD_BORDER,
-            color=CARD_BG, batch=batch,
-        )
         self.label = pyglet.text.Label(
-            "", font_name=FONT_NAME, font_size=FONT_SIZE,
+            "",
+            font_name="Helvetica Neue", font_size=FONT_SIZE,
             x=self.x + CARD_W // 2, y=self.y + CARD_H // 2,
             anchor_x="center", anchor_y="center",
             color=TEXT_COLOR, width=CARD_W - 30,
@@ -90,22 +75,18 @@ class LyricCard:
 
     def rise(self, dy):
         self.y -= dy
-        self.body.y = self.y
-        self.shadow.y = self.y - 3
         self.label.y = self.y + CARD_H // 2
 
     def off_screen(self):
         return self.y + CARD_H < -10
 
     def delete(self):
-        self.shadow.delete()
-        self.body.delete()
         self.label.delete()
 
 
 class LyricFloat:
     def __init__(self):
-        display = pyglet.canvas.get_display()
+        display = pyglet.display.get_display()
         screens = display.get_screens()
         self.screen = screens[0]
         self.screen_w = self.screen.width
@@ -117,6 +98,8 @@ class LyricFloat:
             caption="Lyric Float",
         )
         self.window.set_location(0, 0)
+        # hide mouse cursor during animation
+        self.window.set_mouse_visible(False)
 
         self.batch = pyglet.graphics.Batch()
         self.cards = []
@@ -140,12 +123,11 @@ class LyricFloat:
             except Exception:
                 pass
 
-        # event handlers
         self.window.on_draw = self._on_draw
         self.window.on_key_press = self._on_key_press
         self.window.on_mouse_press = self._on_mouse_press
+        self.window.on_mouse_motion = self._on_mouse_motion
 
-        # schedule updates
         pyglet.clock.schedule_interval(self._update, 1 / 60.0)
         pyglet.clock.schedule_interval(self._typewriter_tick, 1 / 15.0)
 
@@ -165,7 +147,6 @@ class LyricFloat:
 
         cols = self._column_centers()
 
-        # spawn due lyrics
         while self.next_idx < len(LYRICS) and LYRICS[self.next_idx][0] <= self.elapsed:
             _, text = LYRICS[self.next_idx]
             cx = cols[self.col_idx % len(cols)]
@@ -175,15 +156,12 @@ class LyricFloat:
             self.cards.append(card)
             self.next_idx += 1
 
-        # rise all cards
         dy = RISE_SPEED * dt
         for c in self.cards:
             c.rise(dy)
 
-        # remove off-screen
         self.cards = [c for c in self.cards if not c.off_screen()]
 
-        # check done
         if self.next_idx >= len(LYRICS) and not self.cards and self.elapsed > LYRICS[-1][0] + 3:
             self.running = False
             pyglet.app.exit()
@@ -205,6 +183,9 @@ class LyricFloat:
     def _on_mouse_press(self, x, y, button, modifiers):
         self.running = False
         pyglet.app.exit()
+
+    def _on_mouse_motion(self, x, y, dx, dy):
+        pass
 
     def run(self):
         pyglet.app.run()
