@@ -44,7 +44,7 @@ CARD_BORDER  = (200, 200, 200, 255)    # grey border
 
 RISE_SPEED = 80
 SPAWN_COLS = 2
-BOTTOM_SPAWN_Y = 0.50    # spawn at centre of screen
+BOTTOM_SPAWN_Y = 0.10    # spawn near bottom (0.0=bottom, 1.0=top)
 
 # ===============================================================
 
