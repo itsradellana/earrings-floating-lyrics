@@ -25,14 +25,14 @@ AUDIO_FILE = ""  # path to .mp3 / .wav, or "" to disable
 
 LYRICS = [
     (0.0,  "Her love is in your head"),
-    (3.2,  "You lost your earrings in her bed"),
-    (6.5,  "You couldn't tell her that you lost 'em"),
-    (9.8,  "'Cause you're scared and you're not talking"),
-    (12.9, "So you think of what to say"),
-    (16.1, "Then save it for another day"),
-    (18.4, "'Cause you just never had the heart"),
-    (21.2, "Now they just drift further apart"),
-    (24.0, "From You...."),
+    (3.5,  "You lost your earrings in her bed"),
+    (7.0,  "You couldn't tell her that you lost 'em"),
+    (10.5, "'Cause you're scared and you're not talking"),
+    (14.0, "So you think of what to say"),
+    (17.5, "Then save it for another day"),
+    (21.0, "'Cause you just never had the heart"),
+    (24.5, "Now they just drift further apart"),
+    (28.0, "From You...."),
 ]
 
 CARD_W  = 500
@@ -42,8 +42,8 @@ TEXT_COLOR   = (30, 30, 30, 255)       # dark text
 CARD_BG      = (255, 255, 255, 255)    # solid white card
 CARD_BORDER  = (200, 200, 200, 255)    # grey border
 
-RISE_SPEED = 50     # slower = more relaxed sync
-SPAWN_COLS = 2
+RISE_SPEED = 110
+SPAWN_COLS = 1    # single column, fully centred
 BOTTOM_SPAWN_Y = 0.20    # spawn near bottom, rise upward (0=bottom, 1=top)
 
 # ===============================================================
