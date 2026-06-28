@@ -107,11 +107,9 @@ class LyricFloat:
 
         self.window = pyglet.window.Window(
             width=self.screen_w, height=self.screen_h,
-            style=pyglet.window.Window.WINDOW_STYLE_TRANSPARENT,
+            style=pyglet.window.Window.WINDOW_STYLE_OVERLAY,
         )
         self.window.set_location(0, 0)
-        # hide mouse cursor during animation
-        self.window.set_mouse_visible(False)
 
         self.batch = pyglet.graphics.Batch()
         self.cards = []
