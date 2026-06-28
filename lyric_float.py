@@ -40,13 +40,13 @@ LYRICS = [
 CARD_W  = 360
 CARD_H  = 160
 FONT_SIZE = 28
-TEXT_COLOR   = (255, 255, 255, 255)
-CARD_BG      = (15, 15, 30, 100)     # dark translucent card
-CARD_BORDER  = (255, 255, 255, 30)    # subtle white border
+TEXT_COLOR   = (30, 30, 30, 255)       # dark text
+CARD_BG      = (255, 255, 255, 160)    # white card
+CARD_BORDER  = (200, 200, 200, 80)     # grey border
 
 RISE_SPEED = 80
 SPAWN_COLS = 2
-BOTTOM_SPAWN_Y = 0.78
+BOTTOM_SPAWN_Y = 0.50    # spawn at centre of screen
 
 # ===============================================================
 
