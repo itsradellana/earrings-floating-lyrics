@@ -35,16 +35,16 @@ LYRICS = [
     (24.0, "From You...."),
 ]
 
-CARD_W  = 440
-CARD_H  = 210
-FONT_SIZE = 34
+CARD_W  = 500
+CARD_H  = 240
+FONT_SIZE = 38
 TEXT_COLOR   = (30, 30, 30, 255)       # dark text
 CARD_BG      = (255, 255, 255, 255)    # solid white card
 CARD_BORDER  = (200, 200, 200, 255)    # grey border
 
-RISE_SPEED = 80
+RISE_SPEED = 50     # slower = more relaxed sync
 SPAWN_COLS = 2
-BOTTOM_SPAWN_Y = 0.15    # spawn near bottom, rise upward (0=bottom, 1=top)
+BOTTOM_SPAWN_Y = 0.20    # spawn near bottom, rise upward (0=bottom, 1=top)
 
 # ===============================================================
 
