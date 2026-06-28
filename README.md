@@ -1,77 +1,50 @@
-# 🎵 earrings-floating-lyrics
+# earrings-floating-lyrics
 
 A lyric visualization tool that turns song lyrics into a cinematic
-floating-window animation — each line appears in its own popup and
-drifts upward in sync with the music. Built for screen recording and
-sharing on social media.
+floating animation. Each line appears as a white card and rises
+upward in a zig-zag pattern — all on a transparent overlay so your
+code editor stays visible behind it.
 
 ---
 
 > "Biar lirik gak cuma terdengar, tapi terlihat."
 
-## ✨ What It Does
-
-- **Multi-Window Float Stack** — Every lyric line spawns as its own
-  borderless window. As new lines appear at the bottom, existing ones
-  rise upward smoothly. Nothing fades, nothing disappears — a clean,
-  continuous visual flow.
-- **Typewriter Reveal** — Text types out character-by-character on each
-  window for that cinematic, beat-matched feel.
-- **Audio-Synced Timing** — Lyric windows spawn at exact timestamps.
-  Drop any `.mp3` or `.wav`, set the timings, and hit Start.
-- **Dynamic Layout** — Boxes alternate between left and right positions,
-  keeping the composition balanced without manual placement.
-- **Fully Customizable** — Font, colors, box size, rise speed, spawn
-  position, number of columns — all exposed as variables at the top of
-  the script. No digging through code.
-
-## 🚀 Get Started
+## Run It
 
 ```bash
-git clone https://github.com/itsradellana/earrings-floating-lyrics.git
-cd earrings-floating-lyrics
-
-# For audio sync (optional)
-pip install pygame
-
-# Run it
+pip3 install pyglet
 python3 lyric_float.py
 ```
 
-Click **Start**, open your screen recorder, and let it play.
+Press **Esc** or click to exit.
 
-Press **Escape** or click anywhere to exit.
+## Make It Yours
 
-> On Linux, you may need: `sudo apt install python3-tk`
-
-## ⚡ Make It Your Own
-
-Open `lyric_float.py` and edit the section at the top:
+Open `lyric_float.py`, edit the config section:
 
 ```python
-AUDIO_FILE = "lagu-kamu.mp3"      # or "" to skip audio
+AUDIO_FILE = "lagu.mp3"   # or "" to skip
 
 LYRICS = [
     (0.0,  "First line"),
-    (4.2,  "Second line"),
-    (8.1,  "Keep going..."),
+    (2.8,  "Second line"),
+    ...
 ]
 
-BOX_W, BOX_H = 300, 250           # window size
-RISE_SPEED = 90                   # pixels per second
-FONT = ("Helvetica", 22, "bold")
-BG_COLOR = "#fdfdf5"              # background
-FG_COLOR = "#111111"              # text
+CARD_W, CARD_H = 500, 240   # card size
+RISE_SPEED = 145             # scroll speed
+SPAWN_COLS = 2               # 1 = centred, 2 = zig-zag
+BOTTOM_SPAWN_Y = 0.20        # spawn height
 ```
 
-## 🖥️ Compatibility
+## Requirements
 
-| Platform | Status |
-|----------|--------|
-| macOS    | Fully supported |
-| Windows  | Works out of the box |
-| Linux    | Needs `python3-tk` |
+| Dependency | Notes |
+|-----------|-------|
+| Python 3.9+ | Built-in |
+| pyglet | `pip3 install pyglet` |
+| Audio | Uses `afplay` (macOS), no extra install |
 
-## ⚖️ License
+## License
 
-MIT — do whatever you want. [LICENSE](LICENSE)
+MIT — [LICENSE](LICENSE)
