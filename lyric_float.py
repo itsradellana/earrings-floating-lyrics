@@ -14,6 +14,7 @@ Usage:
 """
 
 import pyglet
+from pyglet import gl
 from pyglet.window import key
 import subprocess
 import time
@@ -36,10 +37,12 @@ LYRICS = [
     (24.0, "From You...."),
 ]
 
-CARD_W  = 340
-CARD_H  = 140
-FONT_SIZE = 26
-TEXT_COLOR = (255, 255, 255, 255)
+CARD_W  = 360
+CARD_H  = 160
+FONT_SIZE = 28
+TEXT_COLOR   = (255, 255, 255, 255)
+CARD_BG      = (15, 15, 30, 100)     # dark translucent card
+CARD_BORDER  = (255, 255, 255, 30)    # subtle white border
 
 RISE_SPEED = 80
 SPAWN_COLS = 2
@@ -57,6 +60,14 @@ class LyricCard:
         self.y = float(y)
         self.batch = batch
 
+        self.border = pyglet.shapes.Box(
+            self.x - 1, self.y - 1, CARD_W + 2, CARD_H + 2,
+            color=CARD_BORDER, thickness=1, batch=batch,
+        )
+        self.body = pyglet.shapes.Rectangle(
+            self.x, self.y, CARD_W, CARD_H,
+            color=CARD_BG, batch=batch,
+        )
         self.label = pyglet.text.Label(
             "",
             font_name="Helvetica Neue", font_size=FONT_SIZE,
@@ -75,12 +86,16 @@ class LyricCard:
 
     def rise(self, dy):
         self.y -= dy
+        self.body.y = self.y
+        self.border.y = self.y - 1
         self.label.y = self.y + CARD_H // 2
 
     def off_screen(self):
         return self.y + CARD_H < -10
 
     def delete(self):
+        self.body.delete()
+        self.border.delete()
         self.label.delete()
 
 
@@ -172,6 +187,7 @@ class LyricFloat:
                 c.typewriter(dt)
 
     def _on_draw(self):
+        gl.glClearColor(0, 0, 0, 0)
         self.window.clear()
         self.batch.draw()
 
