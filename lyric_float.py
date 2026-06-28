@@ -147,7 +147,7 @@ class LyricFloat:
         pyglet.clock.schedule_interval(self._typewriter_tick, 1 / 15.0)
 
     def _column_centers(self):
-        margin = 80
+        margin = 120
         usable = self.screen_w - margin * 2
         spacing = usable / SPAWN_COLS
         return [margin + spacing * (i + 0.5) for i in range(SPAWN_COLS)]
@@ -166,7 +166,7 @@ class LyricFloat:
             _, text = LYRICS[self.next_idx]
             cx = cols[self.col_idx % len(cols)]
             self.col_idx += 1
-            y = int(self.screen_h * BOTTOM_SPAWN_Y)
+            y = int(self.screen_h * BOTTOM_SPAWN_Y - CARD_H // 2)
             card = LyricCard(text, cx, y, self.batch)
             self.cards.append(card)
             self.next_idx += 1
