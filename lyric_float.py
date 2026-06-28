@@ -42,8 +42,8 @@ TEXT_COLOR   = (30, 30, 30, 255)       # dark text
 CARD_BG      = (255, 255, 255, 255)    # solid white card
 CARD_BORDER  = (200, 200, 200, 255)    # grey border
 
-RISE_SPEED = 110
-SPAWN_COLS = 1    # single column, fully centred
+RISE_SPEED = 140
+SPAWN_COLS = 2    # zig-zag left & right
 BOTTOM_SPAWN_Y = 0.20    # spawn near bottom, rise upward (0=bottom, 1=top)
 
 # ===============================================================
