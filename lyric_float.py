@@ -25,14 +25,14 @@ AUDIO_FILE = ""  # path to .mp3 / .wav, or "" to disable
 
 LYRICS = [
     (0.0,  "Her love is in your head"),
-    (2.2,  "You lost your earrings in her bed"),
-    (4.4,  "You couldn't tell her that you lost 'em"),
-    (6.6,  "'Cause you're scared and you're not talking"),
-    (8.8,  "So you think of what to say"),
-    (11.0, "Then save it for another day"),
-    (13.2, "'Cause you just never had the heart"),
-    (15.4, "Now they just drift further apart"),
-    (17.6, "From You...."),
+    (2.8,  "You lost your earrings in her bed"),
+    (5.6,  "You couldn't tell her that you lost 'em"),
+    (8.4,  "'Cause you're scared and you're not talking"),
+    (11.2, "So you think of what to say"),
+    (14.0, "Then save it for another day"),
+    (16.8, "'Cause you just never had the heart"),
+    (19.6, "Now they just drift further apart"),
+    (22.4, "From You...."),
 ]
 
 CARD_W  = 500
