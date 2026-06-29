@@ -1,18 +1,3 @@
-"""
-Floating Lyric Animation — Pyglet Native (Zero External Deps)
----------------------------------------------------------------
-Small lyric cards float upward over your desktop as a transparent
-overlay. Run from VS Code terminal — no browser, no tkinter.
-
-Requirements:
-    pip3 install pyglet
-
-Usage:
-    1. Edit LYRICS and AUDIO_FILE below.
-    2. Run: python3 lyric_float.py
-    3. Cards start floating. Press Esc or click to exit.
-"""
-
 import pyglet
 from pyglet import gl
 from pyglet.window import key
