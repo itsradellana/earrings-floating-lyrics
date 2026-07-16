@@ -1,4 +1,4 @@
-# earrings-floating-lyrics
+# earrings-floating-lyrics 
 
 A lyric visualization tool that renders song lyrics as animated
 floating cards on a transparent overlay window. Designed for
